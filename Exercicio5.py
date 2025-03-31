@@ -43,15 +43,6 @@ class ArvoreGenealogica:
         return True
     
     def buscar_membro(self, nome):
-        """
-        Busca um membro pelo nome.
-        
-        Args:
-            nome (str): Nome do membro a ser buscado.
-        
-        Returns:
-            dict or None: Dicionário do membro se encontrado, None caso contrário.
-        """
         if nome in self.membros:
             return self.membros[nome]
         else:
@@ -59,27 +50,13 @@ class ArvoreGenealogica:
             return None
     
     def _coletar_descendentes(self, membro, lista_descendentes):
-        """
-        Função auxiliar recursiva para coletar descendentes.
-        
-        Args:
-            membro (dict): Membro atual.
-            lista_descendentes (list): Lista onde serão adicionados os descendentes.
-        """
+
         for filho in membro['filhos']:
             lista_descendentes.append(filho['nome'])
             self._coletar_descendentes(filho, lista_descendentes)
     
     def descendentes(self, nome):
-        """
-        Retorna uma lista com todos os descendentes do membro especificado.
-        
-        Args:
-            nome (str): Nome do membro.
-        
-        Returns:
-            list: Lista de nomes dos descendentes.
-        """
+ 
         membro = self.buscar_membro(nome)
         if membro is None:
             return []
@@ -89,15 +66,7 @@ class ArvoreGenealogica:
         return lista_descendentes
     
     def _buscar_pai(self, nome_filho):
-        """
-        Função auxiliar para encontrar o pai de um membro.
-        
-        Args:
-            nome_filho (str): Nome do filho.
-            
-        Returns:
-            str or None: Nome do pai se encontrado, None caso contrário.
-        """
+
         for nome_pai, pai in self.membros.items():
             for filho in pai['filhos']:
                 if filho['nome'] == nome_filho:
@@ -105,15 +74,6 @@ class ArvoreGenealogica:
         return None
     
     def antepassados(self, nome):
-        """
-        Retorna uma lista com todos os antepassados diretos do membro.
-        
-        Args:
-            nome (str): Nome do membro.
-            
-        Returns:
-            list: Lista de nomes dos antepassados.
-        """
         if nome not in self.membros:
             print(f"Membro '{nome}' não encontrado.")
             return []
@@ -132,10 +92,6 @@ class ArvoreGenealogica:
         return lista_antepassados
     
     def visualizar_arvore(self):
-        """
-        Imprime a árvore genealógica de forma hierárquica.
-        """
-        # Encontrar membros raiz (sem pais)
         raizes = []
         for nome in self.membros:
             pai = self._buscar_pai(nome)
@@ -149,13 +105,7 @@ class ArvoreGenealogica:
             self._mostrar_subarvore(raiz, 0)
     
     def _mostrar_subarvore(self, nome, nivel):
-        """
-        Função auxiliar recursiva para mostrar uma subárvore.
-        
-        Args:
-            nome (str): Nome do membro raiz da subárvore.
-            nivel (int): Nível de indentação.
-        """
+
         membro = self.membros[nome]
         indentacao = "  " * nivel
         genero = "M" if membro['sexo'] == 'M' else "F"
@@ -164,4 +114,49 @@ class ArvoreGenealogica:
         
         for filho in membro['filhos']:
             self._mostrar_subarvore(filho['nome'], nivel + 1)
+# Exemplo de uso
+def testar_arvore_genealogica():
+    arvore = ArvoreGenealogica()
+    
+    # Adicionar membros
+    arvore.adicionar_membro("João", 70, "M")
+    arvore.adicionar_membro("Maria", 65, "F")
+    arvore.adicionar_membro("Carlos", 50, "M", "João")
+    arvore.adicionar_membro("Ana", 48, "F", "João")
+    arvore.adicionar_membro("Pedro", 30, "M", "Carlos")
+    arvore.adicionar_membro("Lucia", 28, "F", "Carlos")
+    arvore.adicionar_membro("Lucas", 10, "M", "Pedro")
+    arvore.adicionar_membro("Julia", 8, "F", "Pedro")
+    
+    # Visualizar árvore
+    arvore.visualizar_arvore()
+    
+    # Testar busca
+    print("\nBusca de membro:")
+    membro = arvore.buscar_membro("Pedro")
+    if membro:
+        print(f"Encontrado: {membro['nome']}, {membro['idade']} anos, sexo: {membro['sexo']}")
+    
+    # Testar descendentes
+    print("\nDescendentes de João:")
+    desc = arvore.descendentes("João")
+    print(f"Total: {len(desc)} descendentes")
+    print(", ".join(desc))
+    
+    # Testar antepassados
+    print("\nAntepassados de Lucas:")
+    ante = arvore.antepassados("Lucas")
+    print(f"Total: {len(ante)} antepassados diretos")
+    print(", ".join(ante))
+    
+    # Testar antepassados (caso sem antepassados)
+    print("\nAntepassados de João:")
+    ante = arvore.antepassados("João")
+    print(f"Total: {len(ante)} antepassados diretos")
+    if ante:
+        print(", ".join(ante))
+    else:
+        print("Nenhum antepassado encontrado (membro raiz)")
 
+# Executar o teste
+testar_arvore_genealogica()

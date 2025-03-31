@@ -70,7 +70,7 @@ def plotar_bissecao(f, iteracoes, raiz):
     
     plt.figure(figsize=(12, 8))
     
-    # Gráfico da função
+    # Gráfico
     plt.subplot(2, 1, 1)
     plt.plot(x, y, 'b-', label='f(x) = x³ - x - 2')
     plt.axhline(y=0, color='k', linestyle='-', alpha=0.3)
@@ -81,7 +81,7 @@ def plotar_bissecao(f, iteracoes, raiz):
     plt.xlabel('x')
     plt.ylabel('f(x)')
     
-    # Gráfico da convergência
+
     plt.subplot(2, 1, 2)
     iteracoes_num = [it['iteracao'] for it in iteracoes]
     erros = [it['erro'] for it in iteracoes]
@@ -95,10 +95,9 @@ def plotar_bissecao(f, iteracoes, raiz):
     plt.tight_layout()
     plt.show()
 
-# Parâmetros do problema
+
 a = 1
 b = 2
 precisao = 1e-4
 
-# Executar o método da bisseção
 raiz = metodo_bissecao(f, a, b, precisao)

@@ -50,7 +50,7 @@ def calcular_estatisticas(dados, grandeza):
     
 numero_ciclos_24h = 24 * 60 // 10  # 144 ciclos
 
-# Calcular estatísticas para cada grandeza
+
 estatisticas_temperatura = calcular_estatisticas(dados_ciclos, 'Temperatura')
 estatisticas_umidade = calcular_estatisticas(dados_ciclos, 'Umidade')
 estatisticas_pressao = calcular_estatisticas(dados_ciclos, 'Pressao')

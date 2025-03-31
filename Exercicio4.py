@@ -36,3 +36,14 @@ dados_ciclos = [
     {'Temperatura': 25.52, 'Umidade': 41.09, 'Pressao': 1019.23},
     {'Temperatura': 22.57, 'Umidade': 54.36, 'Pressao': 1013.85}
 ]
+
+def calcular_estatisticas(dados, grandeza):
+    valores = [ciclo[grandeza] for ciclo in dados]
+    minimo = min(valores)
+    maximo = max(valores)
+    media = sum(valores) / len(valores)
+    return {
+        'Mínimo': minimo,
+        'Máximo': maximo,
+        'Média': media
+    }

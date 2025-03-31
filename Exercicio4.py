@@ -47,3 +47,27 @@ def calcular_estatisticas(dados, grandeza):
         'Máximo': maximo,
         'Média': media
     }
+    
+numero_ciclos_24h = 24 * 60 // 10  # 144 ciclos
+
+# Calcular estatísticas para cada grandeza
+estatisticas_temperatura = calcular_estatisticas(dados_ciclos, 'Temperatura')
+estatisticas_umidade = calcular_estatisticas(dados_ciclos, 'Umidade')
+estatisticas_pressao = calcular_estatisticas(dados_ciclos, 'Pressao')
+
+# Resultados
+print(f"Quantidade de ciclos em 24 horas do vigésimo dia: {numero_ciclos_24h}")
+print("\nEstatísticas de Temperatura:")
+print(f"Mínimo: {estatisticas_temperatura['Mínimo']:.2f}°C")
+print(f"Máximo: {estatisticas_temperatura['Máximo']:.2f}°C")
+print(f"Média: {estatisticas_temperatura['Média']:.2f}°C")
+
+print("\nEstatísticas de Umidade:")
+print(f"Mínimo: {estatisticas_umidade['Mínimo']:.2f}%")
+print(f"Máximo: {estatisticas_umidade['Máximo']:.2f}%")
+print(f"Média: {estatisticas_umidade['Média']:.2f}%")
+
+print("\nEstatísticas de Pressão:")
+print(f"Mínimo: {estatisticas_pressao['Mínimo']:.2f} hPa")
+print(f"Máximo: {estatisticas_pressao['Máximo']:.2f} hPa")
+print(f"Média: {estatisticas_pressao['Média']:.2f} hPa")
